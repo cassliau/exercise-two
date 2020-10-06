@@ -1,10 +1,9 @@
 import React, { useState, useEffect, useMemo } from "react";
-//state- current state of application
-
 import axios from "axios";
-
 import { useHistory } from "react-router-dom";
+
 import Header from "../components/Header";
+import WeatherImage from "../components/WeatherImage";
 
 const weatherKey = `dbcf13b0db9ead2deb7165b945bafc8b`;
 
@@ -82,15 +81,35 @@ function Home() {
     <>
       <Header />
       <main className="Home">
-        <h2>Weather in {city}</h2>
-        <div className="Weather Info">
-          <p>Weather Type: {weatherType}</p>
-          <p>Current Temperature: {currentTemp}</p>
-          <p>High Temperature: {highTemp}</p>
-          <p>Low Temperature: {lowTemp}</p>
-          <p>Cloudiness: {cloudiness}</p>
-          <p>Humidity: {humidity}</p>
-          <p>Wind Speed: {windSpeed}</p>
+        <h2>
+          Weather in <span>{city}</span>
+        </h2>
+        <div className="WeatherInfo">
+          <div className="WeatherInfo_Basic">
+            <div className="WeatherInfo_Image">
+              <WeatherImage weatherType={weatherType} />
+            </div>
+            <p className="WeatherInfo_Type">{weatherType}</p>
+            <h3 className="Label">Current Temperature:</h3>
+            <p className="WeatherInfo_Temp"> {currentTemp} </p>
+          </div>
+
+          <div className="WeatherInfo_Extra">
+            <div className="WeatherInfo_Column">
+              <h3 className="Label">High Temperature: </h3>
+              <p className="WeatherInfo_Temp_Small">{highTemp}</p>
+              <h3 className="Label">Low Temperature: </h3>
+              <p className="WeatherInfo_Temp_Small">{lowTemp}</p>
+            </div>
+            <div className="WeatherInfo_Column">
+              <h3 className="Label">Cloudiness: </h3>
+              <p className="WeatherInfo_Temp_Small">{cloudiness}</p>
+              <h3 className="Label">Humidity: </h3>
+              <p className="WeatherInfo_Temp_Small">{humidity}</p>
+              <h3 className="Label">Wind Speed: </h3>
+              <p className="WeatherInfo_Temp_Small">{windSpeed}</p>
+            </div>
+          </div>
         </div>
       </main>
     </>

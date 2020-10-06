@@ -30,3 +30,65 @@
   max-width: 1080px;
   padding: 0 25px;
 }
+
+.Home h2 {
+  font-size: 48px;
+  font-weight: normal;
+}
+
+.Home h2 span {
+  color: darkcyan;
+}
+
+.WeatherInfo {
+  display: flex;
+  justify-content: space-between;
+}
+
+.WeatherInfo_Basic {
+  border: 1px solid black;
+  flex-basis: 40%;
+  padding: 30px;
+  margin: 0;
+  text-align: center;
+}
+
+.WeatherInfo_Type {
+  font-size: 50px;
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.WeatherInfo_Temp {
+  font-size: 50px;
+  margin: 0;
+}
+
+.WeatherInfo_Temp_Small {
+  font-size: 48px;
+  margin: 0;
+  margin-bottom: 30px;
+}
+
+.WeatherInfo_Extra {
+  border: 1px solid black;
+  border-left: none;
+  display: flex;
+  flex-basis: 60%;
+  padding: 30px;
+}
+
+.WeatherInfo_Column {
+  flex-basis: 60%;
+}
+
+.WeatherInfo_Image {
+  font-size: 125px;
+}
+
+.Label {
+  font-size: 16px;
+  letter-spacing: 2px;
+  margin: 0;
+  text-transform: uppercase;
+}
