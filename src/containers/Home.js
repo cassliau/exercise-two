@@ -16,7 +16,7 @@ function Home() {
   useEffect(() => {
     axios
       .get(
-        `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${weatherKey}`
+        `https://api.openweathermap.org/data/2.5/weather?q=${city}&units=imperial&appid=${weatherKey}`
       )
       .then(function (response) {
         const weather = response.data;
@@ -39,6 +39,7 @@ function Home() {
 
   const {
     cloudiness,
+    cloudinessValue,
     currentTemp,
     highTemp,
     lowTemp,
@@ -47,6 +48,7 @@ function Home() {
     windSpeed,
   } = useMemo(() => {
     let cloudiness = "";
+    let cloudinessValue = "";
     let currentTemp = "";
     let highTemp = "";
     let lowTemp = "";
@@ -56,16 +58,18 @@ function Home() {
 
     if (weatherData) {
       cloudiness = `${weatherData.clouds.all}%`;
-      currentTemp = `${weatherData.main.temp}`;
-      highTemp = `${weatherData.main.temp_max}`;
-      lowTemp = `${weatherData.main.temp_min}`;
+      cloudinessValue = weatherData.clouds.all;
+      currentTemp = `${Math.round(weatherData.main.temp)} ℉`;
+      highTemp = `${Math.round(weatherData.main.temp_max)} ℉`;
+      lowTemp = `${Math.round(weatherData.main.temp_min)} ℉`;
       humidity = `${weatherData.main.humidity}%`;
       weatherType = `${weatherData.weather[0].description}`;
-      windSpeed = `${weatherData.wind.speed} km/h`;
+      windSpeed = `${weatherData.wind.speed} mp/h`;
     }
 
     return {
       cloudiness,
+      cloudinessValue,
       currentTemp,
       highTemp,
       lowTemp,
@@ -75,25 +79,31 @@ function Home() {
     };
   }, [weatherData]);
 
-  console.log("weatherData", weatherData);
+  console.log("cloudiness val:", cloudinessValue);
 
   return (
     <>
       <Header />
       <main className="Home">
         <h2>
-          Weather in <span>{city}</span>
+          weather in <span>{city}</span>
         </h2>
         <div className="WeatherInfo">
-          <div className="WeatherInfo_Basic">
+          <div
+            className="WeatherInfo_Basic"
+            style={{
+              backgroundColor: `rgba(163,206,241,${cloudinessValue / 350})`,
+            }}
+          >
             <div className="WeatherInfo_Image">
               <WeatherImage weatherType={weatherType} />
             </div>
-            <p className="WeatherInfo_Type">{weatherType}</p>
+            <p className="WeatherInfo_Type">
+              <span>{weatherType}</span>
+            </p>
             <h3 className="Label">Current Temperature:</h3>
             <p className="WeatherInfo_Temp"> {currentTemp} </p>
           </div>
-
           <div className="WeatherInfo_Extra">
             <div className="WeatherInfo_Column">
               <h3 className="Label">High Temperature: </h3>
